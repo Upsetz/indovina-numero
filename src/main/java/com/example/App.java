@@ -27,33 +27,40 @@ public class App
             DataOutputStream out = new DataOutputStream(s.getOutputStream());
 
             int num = (int)(Math.random()*101);
-
-            System.out.println("prova ad indovinare");
-
-            String stringaRicevuta = in.readLine();
-            
+            String stringaRicevuta;
             int c = 0;
-
-            while(Integer.parseInt(stringaRicevuta) != num){
-
+            
+            System.out.println(num);
+            do{
+                
+                c++;
+                
+                stringaRicevuta = in.readLine();
+                
                 if(Integer.parseInt(stringaRicevuta) < num){
                     
-                    out.writeBytes("num troppo piccolo");
+                    out.writeBytes("1" + "\n");
 
                 }
 
                 else if(Integer.parseInt(stringaRicevuta) > num){
 
-                    out.writeBytes("num troppo grande");
+                    out.writeBytes("2" + '\n');
             
                 }
 
-                c++;
+                else if(Integer.parseInt(stringaRicevuta) == num){
 
-            }
+                    out.writeBytes("3" + '\n');
+                    out.writeBytes(String.valueOf(c));
+            
+                }
+                
 
-            System.out.println("Stringa indovinata");
-            out.writeBytes("Hai indovinato in: " + num + " tentativi");
+                
+
+            }while(Integer.parseInt(stringaRicevuta) != num);
+
             
             s.close();
             server.close();
